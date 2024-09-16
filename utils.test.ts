@@ -1,5 +1,11 @@
 import { expect, test } from "bun:test";
-import { addFruits, displayStock, removeFruits, sellFruits } from "./src/utils";
+import {
+  addFruits,
+  checkFruitAvalabilityAndStock,
+  displayStock,
+  removeFruits,
+  sellFruits,
+} from "./src/utils";
 
 const vendeur1 = {
   name: "vendeur1",
@@ -41,4 +47,40 @@ test("removeFruits", () => {
     citron: 8,
     poire: 5,
   });
+});
+
+// UC06
+test("checkFruitAvalabilityAndStock with fruit absent in stock", () => {
+  const vendeur2 = {
+    name: "vendeur2",
+    stock: {
+      pomme: 2,
+      poire: 4,
+    },
+  };
+  expect(checkFruitAvalabilityAndStock(vendeur2, "ananas", 4)).toBe(false);
+});
+
+// UC06
+test("checkFruitAvalabilityAndStock with quantity insufficient", () => {
+  const vendeur2 = {
+    name: "vendeur2",
+    stock: {
+      pomme: 2,
+      poire: 4,
+    },
+  };
+  expect(checkFruitAvalabilityAndStock(vendeur2, "poire", 8)).toBe(false);
+});
+
+// UC06
+test("checkFruitAvalabilityAndStock with sufficiant quantity", () => {
+  const vendeur2 = {
+    name: "vendeur2",
+    stock: {
+      pomme: 2,
+      poire: 4,
+    },
+  };
+  expect(checkFruitAvalabilityAndStock(vendeur2, "poire", 3)).toBe(true);
 });

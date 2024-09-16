@@ -2,10 +2,6 @@ import type { Fruit, Vendor } from "../types";
 
 // UC01
 export function displayStock(vendor: Vendor) {
-  //   console.log(`Dans le stock de ${vendor.name}, il y a :`);
-  //   Object.keys(vendor.stock).map((fruit) =>
-  //     console.log(`${vendor.stock[fruit]} ${fruit}`)
-  //   );
   return vendor.stock;
 }
 
