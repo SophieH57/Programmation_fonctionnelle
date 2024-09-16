@@ -39,7 +39,7 @@ export function removeFruits(vendor: Vendor, fruitName: Fruit["name"]) {
 }
 
 // UC06
-export function checkFruitAvalabilityAndStock(
+export function checkFruitAvailabilityAndStock(
   vendor: Vendor,
   fruitName: Fruit["name"],
   quantity: number

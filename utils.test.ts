@@ -1,7 +1,7 @@
 import { expect, test } from "bun:test";
 import {
   addFruits,
-  checkFruitAvalabilityAndStock,
+  checkFruitAvailabilityAndStock,
   displayStock,
   removeFruits,
   sellFruits,
@@ -58,7 +58,7 @@ test("checkFruitAvalabilityAndStock with fruit absent in stock", () => {
       poire: 4,
     },
   };
-  expect(checkFruitAvalabilityAndStock(vendeur2, "ananas", 4)).toBe(false);
+  expect(checkFruitAvailabilityAndStock(vendeur2, "ananas", 4)).toBe(false);
 });
 
 // UC06
@@ -70,7 +70,7 @@ test("checkFruitAvalabilityAndStock with quantity insufficient", () => {
       poire: 4,
     },
   };
-  expect(checkFruitAvalabilityAndStock(vendeur2, "poire", 8)).toBe(false);
+  expect(checkFruitAvailabilityAndStock(vendeur2, "poire", 8)).toBe(false);
 });
 
 // UC06
@@ -82,5 +82,5 @@ test("checkFruitAvalabilityAndStock with sufficiant quantity", () => {
       poire: 4,
     },
   };
-  expect(checkFruitAvalabilityAndStock(vendeur2, "poire", 3)).toBe(true);
+  expect(checkFruitAvailabilityAndStock(vendeur2, "poire", 3)).toBe(true);
 });
