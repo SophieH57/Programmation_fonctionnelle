@@ -5,7 +5,7 @@ import {
   displayStock,
   removeFruits,
   sellFruits,
-} from "./src/utils";
+} from "./market-src/market-utils";
 
 const vendeur1 = {
   name: "vendeur1",

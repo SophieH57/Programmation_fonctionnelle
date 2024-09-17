@@ -10,7 +10,8 @@
     "typescript": "^5.6.2"
   },
   "scripts": {
-    "start": "bun run src/index.ts",
+    "start-market": "bun run market-src/index.ts",
+    "start-penalty": "bun run penalty-src/penalty-index.ts",
     "build": "bun x tsc"
   }
 }

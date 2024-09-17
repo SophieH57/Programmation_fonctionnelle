@@ -1,5 +1,10 @@
-import type { Vendor } from "../types";
-import { addFruits, displayStock, removeFruits, sellFruits } from "./utils";
+import type { Vendor } from "./market-types";
+import {
+  addFruits,
+  displayStock,
+  removeFruits,
+  sellFruits,
+} from "./market-utils";
 
 const vendeur1 = {
   name: "vendeur1",

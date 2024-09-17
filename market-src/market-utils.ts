@@ -1,4 +1,4 @@
-import type { Fruit, Vendor } from "../types";
+import type { Fruit, Vendor } from "./market-types";
 
 // UC01
 export const displayStock = (vendor: Vendor): Vendor["stock"] => {

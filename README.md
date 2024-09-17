@@ -6,10 +6,16 @@ To install dependencies:
 bun install
 ```
 
-To run:
+To run tp functional market:
 
 ```bash
-bun start
+bun start-market
+```
+
+To run tp functional penalty:
+
+```bash
+bun start-penalty
 ```
 
 To run tests:
