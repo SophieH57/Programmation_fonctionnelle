@@ -1,59 +1,88 @@
 import type { Fruit, Vendor } from "../types";
 
 // UC01
-export function displayStock(vendor: Vendor) {
-  return vendor.stock;
-}
+export const displayStock = (vendor: Vendor): Vendor["stock"] => {
+  const vendorStock = { ...vendor.stock };
+  return vendorStock;
+};
 
 // UC092
-export function sellFruits(
+export const sellFruits = (
   vendor: Vendor,
   fruitName: Fruit["name"],
   quantity: number
-) {
-  vendor.stock[fruitName] -= quantity;
-  console.log(`${quantity} ${fruitName} vendus.`);
-  return vendor;
-}
+): { vendor: Vendor; message: string } => {
+  if (Object.keys(vendor.stock).includes(fruitName)) {
+    const newQuantity = vendor.stock[fruitName] - quantity;
+    const vendorStock = { ...vendor.stock, [fruitName]: newQuantity };
+    const updatedVendor = { name: vendor.name, stock: vendorStock };
+    return {
+      vendor: updatedVendor,
+      message: `${quantity} ${fruitName} ont été vendus.`,
+    };
+  } else return { vendor, message: `${fruitName} non disponibles` };
+};
 
 // UC04
-export function addFruits(
+export const addFruits = (
   vendor: Vendor,
   fruitName: Fruit["name"],
   quantity: number
-) {
-  if (Object.keys(vendor.stock).includes(fruitName)) {
-    vendor.stock[fruitName] += quantity;
-  } else {
-    vendor.stock[fruitName] = quantity;
-  }
-  console.log(`${quantity} ${fruitName} ajouté(es) au stock`);
-  return vendor;
-}
+): { vendor: Vendor; message: string } => {
+  const newQuantity = vendor.stock[fruitName] + quantity;
+  const { [fruitName]: _, ...updatedStock } = vendor.stock;
+  const updatedVendor = {
+    ...vendor,
+    stock: {
+      ...updatedStock,
+      [fruitName]: vendor.stock[fruitName] ? newQuantity : quantity,
+    },
+  };
+  return {
+    vendor: updatedVendor,
+    message: `${quantity} ${fruitName} ajouté(es) au stock`,
+  };
+};
 
 // UC05
-export function removeFruits(vendor: Vendor, fruitName: Fruit["name"]) {
-  delete vendor.stock[fruitName];
-  console.log(`${fruitName} supprimé du stock.`);
-  return vendor;
-}
+export const removeFruits = (
+  vendor: Vendor,
+  fruitName: Fruit["name"]
+): { vendor: Vendor; message: string } => {
+  if (Object.keys(vendor.stock).includes(fruitName)) {
+    const { [fruitName]: quantity, ...updatedStock } = vendor.stock;
+    const updatedVendor = {
+      ...vendor,
+      stock: updatedStock,
+    };
+
+    return {
+      vendor: updatedVendor,
+      message: `${fruitName} supprimé du stock.`,
+    };
+  } else {
+    return {
+      vendor,
+      message: `${fruitName} n'existe pas dans le stock.`,
+    };
+  }
+};
 
 // UC06
-export function checkFruitAvailabilityAndStock(
+export const checkFruitAvailabilityAndStock = (
   vendor: Vendor,
   fruitName: Fruit["name"],
   quantity: number
-) {
-  if (
+): { check: boolean; message: string } => {
+  const checkAvailability =
     Object.keys(vendor.stock).includes(fruitName) &&
-    vendor.stock[fruitName] >= quantity
-  ) {
-    console.log(`${fruitName} présent en quantité suffisante dans le stock.`);
-    return true;
-  } else {
-    if (!Object.keys(vendor.stock).includes(fruitName))
-      console.log(`${fruitName} absent du stock.`);
-    else console.log(`${fruitName} disponible en quantité insuffisante.`);
-    return false;
-  }
-}
+    vendor.stock[fruitName] >= quantity;
+  return {
+    check: checkAvailability,
+    message: checkAvailability
+      ? `${fruitName} présent en quantité suffisante dans le stock.`
+      : Object.keys(vendor.stock).includes(fruitName)
+      ? `${fruitName} disponible en quantité insuffisante.`
+      : `${fruitName} absent du stock.`,
+  };
+};

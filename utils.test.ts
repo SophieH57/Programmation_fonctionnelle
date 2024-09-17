@@ -24,27 +24,26 @@ test("displayStock", () => {
 // UC04
 test("addFruits", () => {
   const vendeur1With5pomme = addFruits(vendeur1, "pomme", 5);
-  expect(vendeur1With5pomme.stock["pomme"]).toBe(15);
+  expect(vendeur1With5pomme.vendor.stock["pomme"]).toBe(15);
 });
 
 // UC03
 test("addFruits", () => {
   const vendeur1With5pomme = addFruits(vendeur1, "citron", 8);
-  expect(vendeur1With5pomme.stock["citron"]).toBe(8);
+  expect(vendeur1With5pomme.vendor.stock["citron"]).toBe(8);
 });
 
 // UC02
 test("sellFruits", () => {
   const vendeur1Sell2Ananas = sellFruits(vendeur1, "ananas", 2);
-  expect(vendeur1Sell2Ananas.stock["ananas"]).toBe(6);
+  expect(vendeur1Sell2Ananas.vendor.stock["ananas"]).toBe(6);
 });
 
 // UC05
 test("removeFruits", () => {
   const vendeur1withoutAnanas = removeFruits(vendeur1, "ananas");
-  expect(vendeur1withoutAnanas.stock).toMatchObject({
-    pomme: 15,
-    citron: 8,
+  expect(vendeur1withoutAnanas.vendor.stock).toMatchObject({
+    pomme: 10,
     poire: 5,
   });
 });
@@ -58,7 +57,9 @@ test("checkFruitAvalabilityAndStock with fruit absent in stock", () => {
       poire: 4,
     },
   };
-  expect(checkFruitAvailabilityAndStock(vendeur2, "ananas", 4)).toBe(false);
+  expect(checkFruitAvailabilityAndStock(vendeur2, "ananas", 4).check).toBe(
+    false
+  );
 });
 
 // UC06
@@ -70,7 +71,9 @@ test("checkFruitAvalabilityAndStock with quantity insufficient", () => {
       poire: 4,
     },
   };
-  expect(checkFruitAvailabilityAndStock(vendeur2, "poire", 8)).toBe(false);
+  expect(checkFruitAvailabilityAndStock(vendeur2, "poire", 8).check).toBe(
+    false
+  );
 });
 
 // UC06
@@ -82,5 +85,5 @@ test("checkFruitAvalabilityAndStock with sufficiant quantity", () => {
       poire: 4,
     },
   };
-  expect(checkFruitAvailabilityAndStock(vendeur2, "poire", 3)).toBe(true);
+  expect(checkFruitAvailabilityAndStock(vendeur2, "poire", 3).check).toBe(true);
 });
