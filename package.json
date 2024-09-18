@@ -12,6 +12,7 @@
   "scripts": {
     "start-market": "bun run market-src/index.ts",
     "start-penalty": "bun run penalty-src/penalty-index.ts",
+    "start-pizza": "bun run pizza-src/pizza-index.ts",
     "build": "bun x tsc"
   }
 }
