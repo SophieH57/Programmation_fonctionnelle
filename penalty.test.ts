@@ -1,5 +1,6 @@
 import { expect, test } from "bun:test";
 import {
+  checkVictory,
   printScore,
   shoot,
   updateHistory,
@@ -43,11 +44,28 @@ test("printScore", () => {
   const currentScore = { TeamA: 2, TeamB: 1 };
   const previousScore = { TeamA: 1, TeamB: 1 };
   expect(printScore(index, currentScore, previousScore)).toBe(
-    `Tir 1 | Score : 2/1 (équipe A: +1, équipe B: 0)`
+    `Tir 2 | Score : 2/1 (équipe A: +1, équipe B: 0)`
   );
 });
 
 test("winner", () => {
   const score = { TeamA: 3, TeamB: 5 };
   expect(winner(score)).toBe("Team B");
+});
+
+test("winner: egalité", () => {
+  const score = { TeamA: 3, TeamB: 3 };
+  expect(winner(score)).toBe("Egalité");
+});
+
+test("checkVictory, TeamB win 0-3", () => {
+  const score = { TeamA: 0, TeamB: 3 };
+  const remainingShots = 2;
+  expect(checkVictory(score, remainingShots)).toBeTrue();
+});
+
+test("checkVictory, no-winner", () => {
+  const score = { TeamA: 1, TeamB: 3 };
+  const remainingShots = 2;
+  expect(checkVictory(score, remainingShots)).toBeFalse();
 });

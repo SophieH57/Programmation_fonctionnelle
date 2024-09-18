@@ -24,7 +24,7 @@ export const printScore = (
   currentScore: Score,
   previousScore: Score
 ) => {
-  return `Tir ${index} | Score : ${currentScore["TeamA"]}/${
+  return `Tir ${index + 1} | Score : ${currentScore["TeamA"]}/${
     currentScore["TeamB"]
   } (équipe A: ${
     currentScore["TeamA"] > previousScore["TeamA"] ? `+1` : `0`
@@ -39,4 +39,14 @@ export const winner = (score: Score): string => {
       ? "Team A"
       : "Team B";
   return result;
+};
+
+export const checkVictory = (
+  currentScore: Score,
+  shotsRemaining: number
+): boolean => {
+  return (
+    currentScore["TeamA"] > currentScore["TeamB"] + shotsRemaining ||
+    currentScore["TeamB"] > currentScore["TeamA"] + shotsRemaining
+  );
 };
