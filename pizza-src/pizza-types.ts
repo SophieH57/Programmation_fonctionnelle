@@ -1,6 +1,4 @@
-import type { UUID } from "crypto";
-
-export type BasePizza = "Tomate" | "Crème" | "Nature";
+// export type BasePizza = "Tomate" | "Crème" | "Nature";
 
 export type Ingredient =
   | "Mozzarella"
@@ -25,30 +23,30 @@ export type Ingredient =
   | "Roquette";
 
 export type Pizza = {
-  id: UUID;
+  id: string;
   name: string;
   price: number;
-  base: BasePizza;
+  base: string;
   ingredients: Ingredient[];
 };
 
-export type OrderType = "Delivery" | "Take Away" | "For Here";
+// export type OrderType = "Delivery" | "Take Away" | "For Here";
 
-export type StatusType = "Completed";
+// export type StatusType = "Completed";
 
 export type itemType = {
-  pizzaId: UUID;
+  pizzaId: string;
   quantity: number;
   price: number;
   amount: number;
 };
 
 export type Order = {
-  id: UUID;
+  id: string;
   orderedAt: Date;
   readyAt: Date;
-  orderType: OrderType;
-  status: StatusType;
+  orderType: string;
+  status: string;
   amount: number;
   totalAmount: number;
   items: itemType[];
