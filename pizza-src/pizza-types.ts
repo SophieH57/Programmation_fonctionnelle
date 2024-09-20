@@ -34,7 +34,7 @@ export type Pizza = {
 
 // export type StatusType = "Completed";
 
-export type itemType = {
+export type ItemType = {
   pizzaId: string;
   quantity: number;
   price: number;
@@ -49,6 +49,6 @@ export type Order = {
   status: string;
   amount: number;
   totalAmount: number;
-  items: itemType[];
+  items: ItemType[];
   deliveryCosts: number;
 };

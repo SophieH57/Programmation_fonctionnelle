@@ -2,9 +2,12 @@ import { expect, test } from "bun:test";
 import {
   calculateAverage,
   countUniqueValuesByKey,
+  findKeyWithTargetValue,
   findObjectWithFilter,
   findPizzaWhereNotSold,
   findUniqueIngredients,
+  getCountOfPizzasIds,
+  getIdsPizzasFromOrders,
   getKeyOfMaxValue,
   getMapOfObjectParam,
   getObjectsWithTargetElement,
@@ -493,4 +496,76 @@ test("getMapOfObjectParam with string", () => {
 test("getKeyOfMaxValue", () => {
   const list = { aaa: 3, bbb: 2, ccc: 1 };
   expect(getKeyOfMaxValue(list)).toBe("aaa");
+});
+
+test("getIdsPizzasFromOrders", () => {
+  const orders = [
+    {
+      id: "1b50f90d-cd69-4db8-8563-fa7e06cb87db",
+      orderedAt: parseDate("2024-09-15 20:40:00"),
+      readyAt: parseDate("2024-09-15 20:51:00"),
+      orderType: "Delivery",
+      status: "Completed",
+      amount: 14,
+      totalAmount: 23,
+      items: [
+        {
+          pizzaId: "d088b172-ec12-44c9-8ca2-1d7096204316",
+          quantity: 2,
+          price: 7,
+          amount: 14,
+        },
+      ],
+      deliveryCosts: 9,
+    },
+    {
+      id: "c0b171c5-a367-40ee-9aaa-ff8fde58d3c0",
+      orderedAt: parseDate("2024-09-15 20:40:00"),
+      readyAt: parseDate("2024-09-15 20:54:00"),
+      orderType: "Delivery",
+      status: "Completed",
+      amount: 46,
+      totalAmount: 51,
+      items: [
+        {
+          pizzaId: "6e7c919d-ee62-4ecc-9d24-0a4663732d1f",
+          quantity: 2,
+          price: 11,
+          amount: 22,
+        },
+      ],
+      deliveryCosts: 5,
+    },
+  ];
+  expect(getIdsPizzasFromOrders(orders)).toMatchObject([
+    "d088b172-ec12-44c9-8ca2-1d7096204316",
+    "6e7c919d-ee62-4ecc-9d24-0a4663732d1f",
+  ]);
+});
+
+test("getCountOfPizzasIds", () => {
+  const pizzasidsArray = [
+    "d088b172-ec12-44c9-8ca2-1d7096204316",
+    "6e7c919d-ee62-4ecc-9d24-0a4663732d1f",
+    "6e7c919d-ee62-4ecc-9d24-0a4663732d1f",
+  ];
+  expect(getCountOfPizzasIds(pizzasidsArray)).toMatchObject({
+    "d088b172-ec12-44c9-8ca2-1d7096204316": 1,
+    "6e7c919d-ee62-4ecc-9d24-0a4663732d1f": 2,
+  });
+});
+
+test("findKeyWithTargetValue", () => {
+  const object = {
+    "d088b172-ec12-44c9-8ca2-1d7096204316": 1,
+    "6e7c919d-ee62-4ecc-9d24-0a4663732d1f": 2,
+    "4eaead97-1475-4763-a0ec-53510d89f0b7": 2,
+  };
+  expect(findKeyWithTargetValue(object, 1)).toMatchObject([
+    "d088b172-ec12-44c9-8ca2-1d7096204316",
+  ]);
+  expect(findKeyWithTargetValue(object, 2)).toMatchObject([
+    "6e7c919d-ee62-4ecc-9d24-0a4663732d1f",
+    "4eaead97-1475-4763-a0ec-53510d89f0b7",
+  ]);
 });

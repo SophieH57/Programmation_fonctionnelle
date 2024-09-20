@@ -1,12 +1,15 @@
-import type { Order, Pizza } from "./pizza-types";
+import type { ItemType, Order, Pizza } from "./pizza-types";
 import pizzasFromJson from "./pizzas.json";
 
 import orderfromJson from "./orders.json";
 import {
   calculateAverage,
+  calculateAverageDeliveryCosts,
+  calculateAveragePreparationTime,
   countUniqueValuesByKey,
   findObjectWithFilter,
   findPizzaWhereNotSold,
+  findPizzaWhichHadBeenOrderedOnce,
   findUniqueIngredients,
   getAverageAmountOfOrders,
   getAverageOfPizzasInOrder,
@@ -14,6 +17,7 @@ import {
   getMapOfObjectParam,
   getNameOfPizzaMostSold,
   getObjectsWithTargetElement,
+  getPizzasIdFromOrder,
   getUnusedIngredients,
   isPizzaWithoutMeat,
   parseDate,
@@ -97,3 +101,14 @@ console.log(getUnusedIngredients(orders, pizzasObjects));
 console.log(
   "13. Combien de recettes de pizzas ont été commandées une seule fois ?"
 );
+console.log(findPizzaWhichHadBeenOrderedOnce(orders, pizzasObjects));
+
+console.log(
+  "14. Combien de minutes dure en moyenne la préparation d'une commande ?"
+);
+console.log(calculateAveragePreparationTime(orders));
+
+console.log(
+  "15. Quel est le montant moyen des frais de livraison pour les commandes de pizzas à emporter ?"
+);
+console.log(calculateAverageDeliveryCosts(orders));

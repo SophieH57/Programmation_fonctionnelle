@@ -193,3 +193,70 @@ export const getUnusedIngredients = (
   );
   return unusedIngredients;
 };
+
+export const getIdsPizzasFromOrders = (orderList: Order[]): string[] => {
+  return orderList
+    .flatMap((order) => order.items)
+    .flatMap((item) => item.pizzaId);
+};
+
+export const getCountOfPizzasIds = (
+  pizzasIdsArray: string[]
+): Record<string, number> => {
+  return pizzasIdsArray.reduce((countsPizzasIds, pizzaId) => {
+    countsPizzasIds[pizzaId] = (countsPizzasIds[pizzaId] || 0) + 1;
+    return countsPizzasIds;
+  }, {} as Record<string, number>);
+};
+
+export const findKeyWithTargetValue = (
+  object: Record<string, number>,
+  target: number
+): string[] => {
+  return Object.keys(object).filter((key) => object[key] == target);
+};
+
+export const findPizzaWhichHadBeenOrderedOnce = (
+  orderList: Order[],
+  pizzaList: Pizza[]
+): string[] => {
+  const pizzasIdsFromOrders = getIdsPizzasFromOrders(orderList);
+  const countOfPizzas = getCountOfPizzasIds(pizzasIdsFromOrders);
+  const pizzasOrdersOnce = findKeyWithTargetValue(countOfPizzas, 1);
+  const pizzasName = pizzasOrdersOnce.map(
+    (pizzaId) => getPizzaName(pizzaId, pizzaList).name
+  );
+  return pizzasName.length
+    ? pizzasName
+    : ["Aucune pizza commandée une seule fois"];
+};
+
+export const calculateAveragePreparationTime = (orders: Order[]): number => {
+  const totalMinutes = orders.reduce((acc, order) => {
+    const orderedAt = new Date(order.orderedAt);
+    const readyAt = new Date(order.readyAt);
+
+    const differenceInMinutes =
+      (readyAt.getTime() - orderedAt.getTime()) / (1000 * 60);
+
+    acc.push(differenceInMinutes);
+    return acc;
+  }, [] as number[]);
+
+  const averageMinutes = calculateAverage(totalMinutes);
+
+  return averageMinutes;
+};
+
+export const calculateAverageDeliveryCosts = (orders: Order[]): number => {
+  const deliveryOrders = orders.filter(
+    (order) =>
+      order.orderType === "Delivery" && order.deliveryCosts !== undefined
+  );
+  if (deliveryOrders.length === 0) return 0;
+  const totalDeliveryCosts = deliveryOrders.reduce((total, order) => {
+    total.push(order.deliveryCosts);
+    return total;
+  }, [] as number[]);
+  return calculateAverage(totalDeliveryCosts);
+};

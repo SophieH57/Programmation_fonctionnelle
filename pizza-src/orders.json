@@ -184,10 +184,10 @@
     "totalAmount": 18,
     "items": [
       {
-        "pizzaId": "f206b9c1-fd70-49ef-b688-e24fe88d2665",
-        "quantity": 2,
+        "pizzaId": "58e818af-0743-42bf-9625-93b9ae77eeb4",
+        "quantity": 1,
         "price": 9,
-        "amount": 18
+        "amount": 9
       }
     ]
   },
